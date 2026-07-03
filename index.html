@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skyline &mdash; Weather Forecast Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Animated gradient backdrop that changes tint with the current condition -->
+  <div class="sky-backdrop" id="skyBackdrop" aria-hidden="true">
+    <div class="sun-glow"></div>
+    <div class="cloud cloud-a"></div>
+    <div class="cloud cloud-b"></div>
+    <div class="cloud cloud-c"></div>
+  </div>
+
+  <div class="app-shell">
+
+    <!-- ===================== HEADER ===================== -->
+    <header class="app-header fade-in">
+      <div class="brand">
+        <span class="brand-icon">☁️</span>
+        <div>
+          <h1 class="brand-title">Skyline</h1>
+          <p class="brand-subtitle">Local Weather Dashboard</p>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div class="live-clock" id="liveClock" aria-live="polite">
+          <span id="clockTime">--:--:--</span>
+          <span id="clockDate">Loading date…</span>
+        </div>
+        <button class="unit-toggle" id="unitToggle" type="button" aria-pressed="false" aria-label="Toggle temperature unit">
+          <span id="unitLabel">°C</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ===================== SEARCH ===================== -->
+    <section class="search-panel fade-in" aria-label="Search weather by city">
+      <form id="searchForm" class="search-form" role="search">
+        <label for="cityInput" class="visually-hidden">City name</label>
+        <input
+          type="text"
+          id="cityInput"
+          class="search-input"
+          placeholder="Search a city… (try Delhi, Tokyo, Paris)"
+          autocomplete="off"
+        />
+        <button type="submit" class="search-btn">
+          <span class="search-btn-icon">🔍</span> Search
+        </button>
+      </form>
+
+      <!-- Search history chips -->
+      <div class="history-wrap">
+        <span class="history-label">Recent:</span>
+        <div id="historyChips" class="history-chips"></div>
+      </div>
+    </section>
+
+    <!-- ===================== LOADER ===================== -->
+    <div id="loader" class="loader-overlay hidden" aria-live="polite">
+      <div class="spinner"></div>
+      <p>Fetching latest weather…</p>
+    </div>
+
+    <!-- ===================== ERROR STATE ===================== -->
+    <div id="errorState" class="error-card hidden fade-in">
+      <span class="error-icon">🌪️</span>
+      <h2>City Not Found</h2>
+      <p id="errorMessage">We couldn't find that city in our dataset. Try one of the cities in your recent list.</p>
+    </div>
+
+    <!-- ===================== MAIN WEATHER DASHBOARD ===================== -->
+    <main id="weatherDashboard" class="dashboard hidden">
+
+      <!-- Current weather hero card -->
+      <section class="current-card glass fade-in" aria-label="Current weather">
+        <div class="current-top">
+          <div>
+            <h2 id="cityName" class="city-name">--</h2>
+            <p id="cityCondition" class="city-condition">--</p>
+          </div>
+          <div class="current-icon" id="currentIcon">⛅</div>
+        </div>
+
+        <div class="current-temp-row">
+          <span id="currentTemp" class="current-temp">--°</span>
+          <span id="feelsLike" class="feels-like">Feels like --°</span>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-box">
+            <span class="stat-icon">💧</span>
+            <div>
+              <p class="stat-label">Humidity</p>
+              <p class="stat-value" id="statHumidity">--%</p>
+            </div>
+          </div>
+          <div class="stat-box">
+            <span class="stat-icon">💨</span>
+            <div>
+              <p class="stat-label">Wind Speed</p>
+              <p class="stat-value" id="statWind">-- km/h</p>
+            </div>
+          </div>
+          <div class="stat-box">
+            <span class="stat-icon">🧭</span>
+            <div>
+              <p class="stat-label">Pressure</p>
+              <p class="stat-value" id="statPressure">-- hPa</p>
+            </div>
+          </div>
+          <div class="stat-box">
+            <span class="stat-icon">👁️</span>
+            <div>
+              <p class="stat-label">Visibility</p>
+              <p class="stat-value" id="statVisibility">-- km</p>
+            </div>
+          </div>
+        </div>
+
+        <p class="last-updated">Last updated: <span id="lastUpdated">--</span></p>
+      </section>
+
+      <!-- 7-day forecast -->
+      <section class="forecast-section fade-in" aria-label="7 day forecast">
+        <h3 class="forecast-title">7-Day Forecast</h3>
+        <div id="forecastGrid" class="forecast-grid"></div>
+      </section>
+
+    </main>
+
+    <!-- ===================== EMPTY STATE (first load, nothing searched yet) ===================== -->
+    <div id="emptyState" class="empty-state fade-in">
+      <span class="empty-icon">🌤️</span>
+      <h2>Search a city to see the weather</h2>
+      <p>Try: Delhi, Mumbai, London, New York, Tokyo, Paris, Sydney, Dubai, Singapore, Moscow</p>
+    </div>
+
+    <footer class="app-footer">
+      <p>Skyline Weather Dashboard — Local dataset only, works fully offline. College Project.</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
